@@ -21,11 +21,6 @@ class MyServer(BaseHTTPRequestHandler):
                 image_path = "uploaded_image.png"
                 image.save(image_path)
 
-                image_cv = cv2.imread(image_path)
-                cv2.imshow("halla",image_cv)
-                if(cv2.waitKey(0)==ord("q")):
-                    cv2.destroyAllWindows
-
                 self._set_headers()
                 self.wfile.write(b'{"status": "Image received and saved"}')
             except Exception as e:
