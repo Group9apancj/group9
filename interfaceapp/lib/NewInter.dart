@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          "Halla",
+                          "Hello",
                           style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 30,
