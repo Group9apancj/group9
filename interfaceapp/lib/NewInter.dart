@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          "User,",
+                          "Augastine,",
                           style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 30,
