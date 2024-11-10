@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
 class Upload2 {
   final ImagePicker _picker = ImagePicker();
@@ -11,24 +12,21 @@ class Upload2 {
     return pickedFile != null ? File(pickedFile.path) : null;
   }
 
-  Future<String> uploadImage(File? image) async {
+  Future<String> uploadImage(Uint8List? image) async {
     if (image == null) {
       return "There is no image to upload.";
     }
     try {
-      List<int> imageBytes = await image.readAsBytes();
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {"content-type": "application/octet-stream"},
-        body: imageBytes,
+        body: image,
       );
 
       if (response.statusCode == 200) {
-        print("Image upload successful, wait for analysis and results");
-        return "Image upload successful";
+        return response.body;
       } else {
-        print("Failed to upload image: ${response.statusCode}");
-        return "Can't upload image, try connecting to the server";
+        return response.statusCode.toString();
       }
     } catch (e) {
       print("Error: $e");

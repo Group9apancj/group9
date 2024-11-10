@@ -33,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            child: Form(
+            child:Column(
+              children: [
+            Form(
               child: Column(
                 children: [
                   SizedBox(height: 250),
@@ -94,7 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                     width: 200,
                     height: 70,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, "homepage");
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -120,10 +124,39 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )),
+            ),
+                SizedBox(height:270),
+                Row(
+                  children: [
+                    Text("Don't have account!",
+                    style: GoogleFonts.roboto(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                    ),
+                    ),
+                    SizedBox(width: 0),
+                    TextButton(
+                        onPressed: (){
+                          Navigator.pushNamed(context, "register");
+                        },
+                        child: Text("Register",
+                          style: GoogleFonts.roboto(
+                            color: Color(0xff715cf8),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            decoration: TextDecoration.underline
+                          ),
+                        ),
+                    )
+                  ],
+                )
+      ]),
+
+        ),
       ),
     );
   }

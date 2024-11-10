@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Register> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<Register> {
   int h1 = 0;
   int h2 = 0;
   int _selectedValue = 1;
@@ -19,6 +19,16 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
         backgroundColor: Color(0xffffffff),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,
+            size: 30,
+            color: Color(0xff715cf8),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            },
+        ),
+
         title: Center(
           child: Text(
             "Create account",
@@ -216,7 +226,39 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: h2==0?true:false,
                     obscuringCharacter: "*",
                   ),
+
                   SizedBox(height: 40),
+                  Container(
+                    width: 200,
+                    height: 70,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            Icons.app_registration,
+                            size: 30,
+                          ),
+                          Text(
+                            "Register",
+                            style: GoogleFonts.roboto(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff715cf8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )),

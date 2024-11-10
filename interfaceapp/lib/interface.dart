@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
+import 'uploadClass.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,12 +24,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Uint8List? _imageBytes; // Store image bytes for Flutter Web compatibility
+  Upload2 upload=Upload2();
 
+  Uint8List? _imageBytes;
   Future<void> _pickImageFromGallery() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes(); // Get bytes for web compatibility
+      final bytes =
+          await pickedFile.readAsBytes();
       setState(() {
         _imageBytes = bytes;
       });
@@ -35,12 +40,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _pickImageFromCamera() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes(); // Get bytes for web compatibility
+      final bytes =
+          await pickedFile.readAsBytes(); // Get bytes for web compatibility
       setState(() {
         _imageBytes = bytes;
       });
+    }
+  }
+
+  Future<void> sendImageToModel() async{
+    if(_imageBytes!=null){
+      final results=await upload.uploadImage(_imageBytes);
+    }else{
+      print("Select image");
     }
   }
 
@@ -146,33 +161,62 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(16.0),
               margin: EdgeInsets.all(10.0),
               width: double.infinity,
-              height: 210,
+              height: 400,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 3,
-                    blurRadius: 8,
-                    offset: Offset(0, 3),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 0),
                   ),
                 ],
               ),
               child: Center(
                 child: _imageBytes != null
                     ? Image.memory(
-                  _imageBytes!,
-                  fit: BoxFit.cover,
-                )
+                        _imageBytes!,
+                        fit: BoxFit.cover,
+                      )
                     : Icon(
-                  Icons.add_photo_alternate_outlined,
-                  color: Colors.deepPurple,
-                  size: 50,
-                ),
+                        Icons.add_photo_alternate_outlined,
+                        color: Colors.deepPurple,
+                        size: 50,
+                      ),
               ),
             ),
             SizedBox(height: 20),
+            Container(
+              width: 150,
+                child: ElevatedButton(
+              onPressed: () {
+                sendImageToModel();
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.upload),
+                  SizedBox(width: 5),
+                  Text("Upload",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  )
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                elevation: 4,
+                  backgroundColor: Color(0xFF9575CD),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                  ),
+
+              ),
+            )
+            ),
           ],
         ),
       ),
@@ -215,7 +259,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildActionButton({required IconData icon, required String label, required VoidCallback onTap}) {
+  Widget _buildActionButton(
+      {required IconData icon,
+      required String label,
+      required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
