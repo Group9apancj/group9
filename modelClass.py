@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing import image
 
 class Model:
     def __init__(self):
-        self.model=load_model("C:/Users/DELL/Desktop/alldatasets/models/resnet152v2.h5")
+        self.model=load_model("C:/Users/DELL/Desktop/alldatasets/models/testingModel.h5")
         print(self.model.summary())
 
     def feedImage(self,image):
