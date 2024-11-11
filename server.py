@@ -2,7 +2,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import os
 from io import BytesIO
 from PIL import Image
-import cv2
+from modelClass import Model
+from tensorflow.keras.preprocessing import image
 
 class MyServer(BaseHTTPRequestHandler):
     def _set_headers(self, status_code=200):
@@ -17,12 +18,19 @@ class MyServer(BaseHTTPRequestHandler):
 
             try:
                 image_data = BytesIO(post_data)
-                image = Image.open(image_data)
+                image1 = Image.open(image_data)
                 image_path = "uploaded_image.png"
-                image.save(image_path)
+                image1.save(image_path)
+
+                img = image.img_to_array(image.load_img(image_path))
+
+                model=Model()
+                staff=model.feedImage(img)
+                print(staff)
 
                 self._set_headers()
                 self.wfile.write(b'{"status": "Image received and saved"}')
+
             except Exception as e:
                 self._set_headers(400)
                 error_message = f'Error: {str(e)}'
