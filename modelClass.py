@@ -22,8 +22,8 @@ class Model:
 
         predictions = self.model.predict(img_array)
 
-        predicted_class1 = np.argmax(predictions, axis=1)
+        predicted_class = np.argmax(predictions, axis=1)
 
-        return [predicted_class1,predictions]
+        return [predicted_class,predictions]
 
 
