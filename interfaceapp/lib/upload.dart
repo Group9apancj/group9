@@ -31,8 +31,8 @@ class _ImageUploadPageState extends State<ImageUploadPage> {
 
   Future<void> _uploadImage() async {
     if (_image != null) {
-      final zobwela =await ups.uploadImage(_image);
-      print(zobwela);
+      //final zobwela =await ups.uploadImage(_image);
+      //print(zobwela);
     }else{
       print("No image selected");
     }
