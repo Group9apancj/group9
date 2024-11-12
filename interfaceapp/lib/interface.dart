@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final results=await upload.uploadImage(_imageBytes);
       print(results);
     }else{
-      print("Select image");
+      print("Select photo");
     }
   }
 
