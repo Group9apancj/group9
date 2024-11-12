@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> sendImageToModel() async{
     if(_imageBytes!=null){
       final results=await upload.uploadImage(_imageBytes);
+      print(results);
     }else{
       print("Select image");
     }
