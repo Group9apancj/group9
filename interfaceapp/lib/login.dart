@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Color(0xffffffff),
         title: Center(
           child: Text(
-            "Login",
+            "Login1",
             style: GoogleFonts.roboto(
                 color: Color(0xff715cf8),
                 fontSize: 42,
