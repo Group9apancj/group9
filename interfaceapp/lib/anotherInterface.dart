@@ -38,7 +38,7 @@ class _InterState extends State<Inter> {
                         fontSize: 30,
                       )),
                   Row(children: [
-                    Text("Hello,",
+                    Text("Hello",
                         style: GoogleFonts.roboto(
                           color: Color(0xff7d5a7a),
                           fontWeight: FontWeight.normal,
