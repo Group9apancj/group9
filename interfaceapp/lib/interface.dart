@@ -190,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 20),
             Container(
+                height: 50,
               width: 150,
                 child: ElevatedButton(
               onPressed: () {
@@ -198,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Icon(Icons.upload),
-                  SizedBox(width: 5),
+                  SizedBox(width: 5,),
                   Text("Upload",
                   style: TextStyle(
                     fontSize: 20,
@@ -218,6 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
