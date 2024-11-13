@@ -11,19 +11,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   int h1 = 0;
   int h2 = 0;
-  int _selectedValue = 1;
+  final int _selectedValue = 1;
   int obsec = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         title: Center(
           child: Text(
-            "Login",
+            "Login1",
             style: GoogleFonts.roboto(
-                color: Color(0xff715cf8),
+                color: const Color(0xff715cf8),
                 fontSize: 42,
                 fontWeight: FontWeight.bold),
           ),
@@ -32,13 +32,13 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Container(
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child:Column(
               children: [
             Form(
               child: Column(
                 children: [
-                  SizedBox(height: 250),
+                  const SizedBox(height: 250),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Enter name",
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.person,
                         size: 30,
                         color: Colors.grey,
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Password",
@@ -91,19 +91,26 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: h2 == 0 ? true : false,
                     obscuringCharacter: "*",
                   ),
-                  SizedBox(height: 40),
-                  Container(
+                  const SizedBox(height: 40),
+                  SizedBox(
                     width: 200,
                     height: 70,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, "homepage");
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff715cf8),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.login,
                             size: 30,
                           ),
@@ -116,19 +123,12 @@ class _LoginPageState extends State<LoginPage> {
                           )
                         ],
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff715cf8),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                      ),
                     ),
                   ),
                 ],
               ),
             ),
-                SizedBox(height:270),
+                const SizedBox(height:270),
                 Row(
                   children: [
                     Text("Don't have account!",
@@ -138,14 +138,14 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 20,
                     ),
                     ),
-                    SizedBox(width: 0),
+                    const SizedBox(width: 0),
                     TextButton(
                         onPressed: (){
                           Navigator.pushNamed(context, "register");
                         },
                         child: Text("Register",
                           style: GoogleFonts.roboto(
-                            color: Color(0xff715cf8),
+                            color: const Color(0xff715cf8),
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             decoration: TextDecoration.underline

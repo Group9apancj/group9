@@ -7,9 +7,9 @@ import 'Register.dart';
 void main() => runApp(MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
-        'register':(context)=>Register(),
-        'homepage': (context) => Home(),
-        '/upload': (context) => ImageUploadPage()
+        '/': (context) => const LoginPage(),
+        'register':(context)=>const Register(),
+        'homepage': (context) => const Home(),
+        '/upload': (context) => const ImageUploadPage()
       },
     ));
