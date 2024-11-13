@@ -155,7 +155,15 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 )
       ]),
-
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                "assets/futela.jpg",
+              ),
+              fit: BoxFit.cover,
+              opacity: 0.5
+            )
+          ),
         ),
       ),
     );
