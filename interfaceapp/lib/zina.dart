@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
   home: Home(),
 ));
 
@@ -17,9 +17,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
-        backgroundColor: Color(0xffebeff2),
+        backgroundColor: const Color(0xffebeff2),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
             Text(
               "Group 9",
               style: GoogleFonts.roboto(
-                  color: Color(0xff65025c),
+                  color: const Color(0xff65025c),
                   fontSize: 20,
                   fontWeight: FontWeight.w900),
             ),
@@ -41,14 +41,14 @@ class _HomeState extends State<Home> {
               Text(
                 "05:30",
                 style: GoogleFonts.roboto(
-                    color: Color(0xff180018),
+                    color: const Color(0xff180018),
                     fontSize: 20,
                     fontWeight: FontWeight.w900),
               ),
               Text(
                 "07/10/2024",
                 style: GoogleFonts.roboto(
-                    color: Color(0xff180018),
+                    color: const Color(0xff180018),
                     fontSize: 15,
                     fontWeight: FontWeight.normal),
               ),
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
             infos(),
@@ -99,7 +99,8 @@ class _infosState extends State<infos> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+            decoration: const BoxDecoration(color: Color(0xffebeff2)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -107,12 +108,12 @@ class _infosState extends State<infos> {
                   Text(
                     "Hello, ",
                     style: GoogleFonts.roboto(
-                        color: Color(0xff0d0e11), fontSize: 20),
+                        color: const Color(0xff0d0e11), fontSize: 20),
                   ),
                   Text(
                     "User!",
                     style: GoogleFonts.roboto(
-                        color: Color(0xff8b4cf7),
+                        color: const Color(0xff8b4cf7),
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
@@ -121,42 +122,42 @@ class _infosState extends State<infos> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.upload,
                         color: Color(0xffe2f7ff),
                         size: 20,
                       ),
                       style: IconButton.styleFrom(
-                          backgroundColor: Color(0xff61156d)),
+                          backgroundColor: const Color(0xff61156d)),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.history,
                         color: Color(0xffe2f7ff),
                         size: 20,
                       ),
                       style: IconButton.styleFrom(
-                          backgroundColor: Color(0xff180018)),
+                          backgroundColor: const Color(0xff180018)),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.person,
                         color: Color(0xffe2f7ff),
                         size: 20,
                       ),
                       style: IconButton.styleFrom(
-                          backgroundColor: Color(0xff071226)),
+                          backgroundColor: const Color(0xff071226)),
                     ),
                   ],
                 ),
               ],
             ),
-            decoration: BoxDecoration(color: Color(0xffebeff2)),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(color: Color(0xffebeff2)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -165,7 +166,7 @@ class _infosState extends State<infos> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(children: [
-                          Icon(
+                          const Icon(
                             Icons.lightbulb,
                             size: 30,
                             color: Color(0xff2493c5),
@@ -173,7 +174,7 @@ class _infosState extends State<infos> {
                           Text(
                             "For Knowledge!",
                             style: GoogleFonts.roboto(
-                                color: Color(0xff20052d),
+                                color: const Color(0xff20052d),
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -184,22 +185,22 @@ class _infosState extends State<infos> {
                               Text(
                                 "Click!",
                                 style: GoogleFonts.roboto(
-                                    color: Color(0xff209848),
+                                    color: const Color(0xff209848),
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(width: 2),
+                              const SizedBox(width: 2),
                               Text(
                                 "Condition below",
                                 style: GoogleFonts.roboto(
-                                    color: Color(0xff094790),
+                                    color: const Color(0xff094790),
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
                               ),
                             ]),
                       ]),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 for (var dis in disease) ...[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,12 +209,21 @@ class _infosState extends State<infos> {
                         Expanded(
                           child: Container(
                             height: 100,
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: const Color(0xffffffff),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 0.5,
+                                      offset: Offset(0, 0))
+                                ],
+                                borderRadius: BorderRadius.circular(5)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 5),
                                     child: Column(
                                       mainAxisAlignment:
@@ -222,16 +232,16 @@ class _infosState extends State<infos> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "$txt",
+                                          txt,
                                           style: GoogleFonts.roboto(
-                                              color: Color(0xffeb03fd),
+                                              color: const Color(0xffeb03fd),
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           "20 Diagnosis",
                                           style: GoogleFonts.roboto(
-                                              color: Color(0xff540c53),
+                                              color: const Color(0xff540c53),
                                               fontSize: 15,
                                               fontWeight: FontWeight.normal),
                                         ),
@@ -239,7 +249,7 @@ class _infosState extends State<infos> {
                                           height: 10,
                                           width: 95,
                                           decoration: BoxDecoration(
-                                            color: Color(0xff3668a4),
+                                            color: const Color(0xff3668a4),
                                             borderRadius:
                                             BorderRadius.circular(20),
                                           ),
@@ -247,6 +257,18 @@ class _infosState extends State<infos> {
                                       ],
                                     )),
                                 Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffab007d),
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: const Border(
+                                          bottom: BorderSide(
+                                              color: Color(0xffab007d),
+                                              width: 5)),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Color(0xff540c53),
+                                            blurRadius: 0.5)
+                                      ]),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
                                     child: Image.network(
@@ -256,43 +278,21 @@ class _infosState extends State<infos> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffab007d),
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Color(0xffab007d),
-                                              width: 5)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Color(0xff540c53),
-                                            blurRadius: 0.5)
-                                      ]),
                                 )
                               ],
                             ),
-                            decoration: BoxDecoration(
-                                color: Color(0xffffffff),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 0.5,
-                                      offset: Offset(0, 0))
-                                ],
-                                borderRadius: BorderRadius.circular(5)),
                           ),
                         ),
                         dis.indexOf(txt) < 1
-                            ? SizedBox(width: 20)
-                            : SizedBox(width: 0),
+                            ? const SizedBox(width: 20)
+                            : const SizedBox(width: 0),
                       ],
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ],
             ),
-            decoration: BoxDecoration(color: Color(0xffebeff2)),
           ),
         ],
       ),

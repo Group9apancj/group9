@@ -261,7 +261,7 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height*0.450,
-      margin: EdgeInsets.only(left: 10,right: 10),
+      width: double.infinity,
       padding: EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Container(
@@ -357,8 +357,8 @@ class _NewsState extends State<News> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
-            blurRadius: 5
+            color: Color(0xFF673AB7),
+            blurRadius: 1
           )
         ]
       ),

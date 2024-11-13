@@ -1,15 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'uploadClass.dart';
 
 
-void main()=>runApp(MaterialApp(
+void main()=>runApp(const MaterialApp(
   home: ImageUploadPage(),
 ));
 
 class ImageUploadPage extends StatefulWidget {
+  const ImageUploadPage({super.key});
+
   @override
   _ImageUploadPageState createState() => _ImageUploadPageState();
 }
@@ -19,10 +19,10 @@ class _ImageUploadPageState extends State<ImageUploadPage> {
   Upload2 ups=Upload2();
   Future<void> _pickImage() async {
 
-    final _image2=await ups.pickImage();
+    final image2=await ups.pickImage();
     setState(() {
-      if (_image2 != null) {
-        _image = _image2;  // Set the picked image
+      if (image2 != null) {
+        _image = image2;  // Set the picked image
       } else {
         _showCustomAlertDialog(context);
       }
@@ -42,7 +42,7 @@ class _ImageUploadPageState extends State<ImageUploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Image to Server'),
+        title: const Text('Upload Image to Server'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,16 +50,16 @@ class _ImageUploadPageState extends State<ImageUploadPage> {
           children: <Widget>[
             _image!= null
                 ? Image.file(_image!)
-                : Text('No image selected.'),
-            SizedBox(height: 20),
+                : const Text('No image selected.'),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pickImage,
-              child: Text('Pick Image from Gallery'),
+              child: const Text('Pick Image from Gallery'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _uploadImage,
-              child: Text('Upload Image'),
+              child: const Text('Upload Image'),
             ),
           ],
         ),
@@ -74,8 +74,8 @@ void _showCustomAlertDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Warning'),
-        content: Column(
+        title: const Text('Warning'),
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(Icons.warning,color: Colors.yellow,size:40), // Add an image
@@ -85,7 +85,7 @@ void _showCustomAlertDialog(BuildContext context) {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Close'),
+            child: const Text('Close'),
             onPressed: () {
               Navigator.of(context).pop(); // Close the dialog
             },
