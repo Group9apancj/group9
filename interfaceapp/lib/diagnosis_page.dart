@@ -87,7 +87,7 @@ class DiagnosisScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Next steps',
+                                  'Next step',
                                   style: TextStyle(
                                     color: Color(0xFF171111),
                                     fontSize: 16,

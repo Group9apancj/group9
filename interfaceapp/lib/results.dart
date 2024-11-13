@@ -58,7 +58,7 @@ class ResultsPage extends StatelessWidget {
                 buildNextStepItem('Moisturize your skin often'),
                 buildNextStepItem('Use mild soap when bathing'),
                 buildNextStepItem('Apply anti-itch cream'),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
