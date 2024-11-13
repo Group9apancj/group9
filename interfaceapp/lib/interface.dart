@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'uploadClass.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -75,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -86,12 +89,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottomRight: Radius.circular(20.0),
                 ),
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Good Morning, User',
                       style: TextStyle(
                         fontSize: 24,
@@ -99,19 +102,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       'How are you today?',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.search, color: Colors.grey),
                           SizedBox(width: 10),
@@ -126,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'Select image to upload',
                       style: TextStyle(
                         fontSize: 18,
@@ -139,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -148,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: 'Open Camera',
                   onTap: _pickImageFromCamera,
                 ),
-                SizedBox(width: 90),
+                const SizedBox(width: 90),
                 _buildActionButton(
                   icon: Icons.photo_camera_back_outlined,
                   label: 'Open Gallery',
@@ -156,11 +159,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Container to display the selected image or icon
             Container(
-              padding: EdgeInsets.all(16.0),
-              margin: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(10.0),
               width: double.infinity,
               height: 400,
               decoration: BoxDecoration(
@@ -171,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 1,
                     blurRadius: 1,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -181,21 +184,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         _imageBytes!,
                         fit: BoxFit.cover,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.add_photo_alternate_outlined,
                         color: Colors.deepPurple,
                         size: 50,
                       ),
               ),
             ),
-            SizedBox(height: 20),
-            Container(
+            const SizedBox(height: 20),
+            SizedBox(
               width: 150,
                 child: ElevatedButton(
               onPressed: () {
                 sendImageToModel();
               },
-              child: Row(
+              style: ElevatedButton.styleFrom(
+                elevation: 4,
+                  backgroundColor: const Color(0xFF9575CD),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                  ),
+
+              ),
+              child: const Row(
                 children: [
                   Icon(Icons.upload),
                   SizedBox(width: 5),
@@ -207,22 +219,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              style: ElevatedButton.styleFrom(
-                elevation: 4,
-                  backgroundColor: Color(0xFF9575CD),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                  ),
-
-              ),
             )
             ),
           ],
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
@@ -270,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: 150,
         height: 50,
         decoration: BoxDecoration(
-          color: Color(0xFF9575CD),
+          color: const Color(0xFF9575CD),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -284,8 +287,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: Colors.white, size: 30),
-            SizedBox(width: 10),
-            Text(label, style: TextStyle(color: Colors.white, fontSize: 16)),
+            const SizedBox(width: 10),
+            Text(label, style: const TextStyle(color: Colors.white, fontSize: 16)),
           ],
         ),
       ),

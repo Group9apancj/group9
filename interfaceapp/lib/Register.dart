@@ -16,11 +16,11 @@ class _LoginPageState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios,
+          icon: const Icon(Icons.arrow_back_ios,
             size: 30,
             color: Color(0xff715cf8),
           ),
@@ -33,7 +33,7 @@ class _LoginPageState extends State<Register> {
           child: Text(
             "Create account",
             style: GoogleFonts.roboto(
-                color: Color(0xff715cf8),
+                color: const Color(0xff715cf8),
                 fontSize: 42,
                 fontWeight: FontWeight.bold),
           ),
@@ -42,11 +42,11 @@ class _LoginPageState extends State<Register> {
       body: SingleChildScrollView(
         child: Container(
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Form(
               child: Column(
                 children: [
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Enter your name",
@@ -54,7 +54,7 @@ class _LoginPageState extends State<Register> {
                           color: Colors.grey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.person,
                         size: 30,
                         color: Colors.grey,
@@ -66,7 +66,7 @@ class _LoginPageState extends State<Register> {
                       fontSize: 20,
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Enter your age",
@@ -74,7 +74,7 @@ class _LoginPageState extends State<Register> {
                           color: Colors.grey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.add,
                         size: 30,
                         color: Colors.grey,
@@ -87,8 +87,8 @@ class _LoginPageState extends State<Register> {
                     ),
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 40),
-                  Container(
+                  const SizedBox(height: 40),
+                  SizedBox(
                       width: double.infinity,
                       child: Column(children: [
                         Text("Select your gender",
@@ -139,7 +139,7 @@ class _LoginPageState extends State<Register> {
                           ],
                         ),
                       ])),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Enter your email",
@@ -147,7 +147,7 @@ class _LoginPageState extends State<Register> {
                           color: Colors.grey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.email,
                         size: 30,
                         color: Colors.grey,
@@ -160,7 +160,7 @@ class _LoginPageState extends State<Register> {
                     ),
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Enter your password",
@@ -193,7 +193,7 @@ class _LoginPageState extends State<Register> {
                     obscureText: h1==0?true:false,
                     obscuringCharacter: "*",
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: "Confirm your password",
@@ -227,17 +227,24 @@ class _LoginPageState extends State<Register> {
                     obscuringCharacter: "*",
                   ),
 
-                  SizedBox(height: 40),
-                  Container(
+                  const SizedBox(height: 40),
+                  SizedBox(
                     width: 200,
                     height: 70,
                     child: ElevatedButton(
                       onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff715cf8),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.app_registration,
                             size: 30,
                           ),
@@ -249,13 +256,6 @@ class _LoginPageState extends State<Register> {
                                 fontWeight: FontWeight.bold),
                           )
                         ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff715cf8),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          )
                       ),
                     ),
                   ),

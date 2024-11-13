@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: Home(),
     ));
 
@@ -22,12 +22,26 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.black,
       body: Container(
         width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color(0xffffffff),
+          Color(0xffffffff),
+        ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Column(
           children: [
             Container(
               width: double.infinity,
               height: 200,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                  color: Color(0xff715cf8),
+                 /* image: DecorationImage(
+                      image: AssetImage("assets/phoda1.jpg"),
+                      opacity: 0.1,
+                      fit: BoxFit.cover),*/
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Row(
@@ -42,7 +56,7 @@ class _HomeState extends State<Home> {
                               fontSize: 30,
                               fontWeight: FontWeight.normal),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           "User,",
                           style: GoogleFonts.roboto(
@@ -54,7 +68,7 @@ class _HomeState extends State<Home> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.menu,
                         size: 40,
                       ),
@@ -65,33 +79,19 @@ class _HomeState extends State<Home> {
                   ],
                 ),
 
-                    buttons(),
+                    const buttons(),
               ]),
-              decoration: BoxDecoration(
-                  color: Color(0xff715cf8),
-                 /* image: DecorationImage(
-                      image: AssetImage("assets/phoda1.jpg"),
-                      opacity: 0.1,
-                      fit: BoxFit.cover),*/
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
-                child: Column(
+                child: const Column(
               children: [wigs(), SizedBox(height: 10), News()],
             )),
           ],
         ),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color(0xffffffff),
-          Color(0xffffffff),
-        ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Container(
+        child: SizedBox(
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -100,24 +100,31 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/upload');
                   },
-                  child: Row(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff715cf8),
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(color: Color(0xff1b91bf)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      )),
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Icon(Icons.upload),
                       Text("Upload"),
                     ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff715cf8),
-                      foregroundColor: Colors.white,
-                      side: BorderSide(color: Color(0xff1b91bf)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      )),
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Row(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff715cf8),
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(color: Color(0xff1b91bf)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      )),
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Icon(Icons.more),
@@ -125,13 +132,6 @@ class _HomeState extends State<Home> {
                       Text("More info!"),
                     ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff715cf8),
-                      foregroundColor: Colors.white,
-                      side: BorderSide(color: Color(0xff1b91bf)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      )),
                 ),
               ],
             )),
@@ -141,6 +141,8 @@ class _HomeState extends State<Home> {
 }
 
 class TimeMachine extends StatefulWidget {
+  const TimeMachine({super.key});
+
   @override
   _TimeMachineState createState() => _TimeMachineState();
 }
@@ -182,8 +184,8 @@ class CircularContainerLayout extends StatelessWidget {
   final double radius;
   final double animationValue;
 
-  CircularContainerLayout(
-      {required this.containerCount,
+  const CircularContainerLayout(
+      {super.key, required this.containerCount,
       required this.radius,
       required this.animationValue});
 
@@ -208,22 +210,22 @@ class CircularContainerLayout extends StatelessWidget {
         return Transform.translate(
           offset: Offset(x, y),
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-                color: Color(0xff1b91bf),
+                color: const Color(0xff1b91bf),
                 shape: BoxShape.circle,
                 //border: Border.all(color: Colors.white, width: 2),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xffd84d63).withOpacity(0.2),
+                    color: const Color(0xffd84d63).withOpacity(0.2),
                     blurRadius: 10,
                     spreadRadius: 5,
                   ),
                 ]),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Eczema",
               style: TextStyle(
                 color: Color(0xfff1f2f2),
@@ -261,17 +263,33 @@ class _NewsState extends State<News> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height*0.450,
-      margin: EdgeInsets.only(left: 10,right: 10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.only(left: 10,right: 10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        image: const DecorationImage(
+            image: NetworkImage("https://th.bing.com/th/id/R.6bf1a6dd6cd70a4c3e22c85d389bf7f9?rik=FTrQ%2b3h5b5JZyA&riu=http%3a%2f%2fwww.organicbeautyblogger.com%2fwp-content%2fuploads%2f2018%2f11%2fHerbivore-Hydrate-and-Glow-Organic-Skincare.jpg&ehk=L1FlkIAHs1nl2rvGxAB02SfL%2fWGLhG5eBHAX0jByc5w%3d&risl=&pid=ImgRaw&r=0"),
+          fit: BoxFit.cover,
+          opacity: 0.1
+        ),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 5
+          )
+        ]
+      ),
       child: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: diseases.entries.map((entry) {
               return Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -279,12 +297,15 @@ class _NewsState extends State<News> {
                       child: Column(
                         children: [
                           Container(
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(color: Colors.grey))),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   entry.key,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold
@@ -293,14 +314,14 @@ class _NewsState extends State<News> {
                                 Row(
                                   children: [
                                     Text(
-                                      '${entry.value.toString()}',
-                                      style: TextStyle(
+                                      entry.value.toString(),
+                                      style: const TextStyle(
                                         color: Color(0xfff65364),
                                         fontSize: 14,
                                       ),
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
+                                    const SizedBox(width: 5),
+                                    const Text(
                                       'Diagnosis',
                                       style: TextStyle(
                                         color: Color(0xff181d3d),
@@ -311,12 +332,9 @@ class _NewsState extends State<News> {
                                 ),
                               ],
                             ),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.grey))),
                           ),
                           Container(
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
@@ -341,26 +359,10 @@ class _NewsState extends State<News> {
                     ),
                   ],
                 ),
-                margin: EdgeInsets.only(bottom: 10),
               );
             }).toList(),
           ),
         ),
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-            image: NetworkImage("https://th.bing.com/th/id/R.6bf1a6dd6cd70a4c3e22c85d389bf7f9?rik=FTrQ%2b3h5b5JZyA&riu=http%3a%2f%2fwww.organicbeautyblogger.com%2fwp-content%2fuploads%2f2018%2f11%2fHerbivore-Hydrate-and-Glow-Organic-Skincare.jpg&ehk=L1FlkIAHs1nl2rvGxAB02SfL%2fWGLhG5eBHAX0jByc5w%3d&risl=&pid=ImgRaw&r=0"),
-          fit: BoxFit.cover,
-          opacity: 0.1
-        ),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 5
-          )
-        ]
       ),
     );
   }
@@ -377,7 +379,7 @@ class _wigsState extends State<wigs> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
@@ -386,7 +388,7 @@ class _wigsState extends State<wigs> {
                   child: Container(
                     height: 200,
                     decoration: BoxDecoration(
-                      color: Color(0xfffe8f2b),
+                      color: const Color(0xfffe8f2b),
                       /*image: DecorationImage(
                           image: AssetImage("assets/lotions.jpg"),
                           opacity: 0.5,
@@ -395,11 +397,19 @@ class _wigsState extends State<wigs> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                     child: Container(
                   height: 200,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                   /* image: DecorationImage(
+                        image: AssetImage("assets/lotions2.jpg"),
+                        opacity: 0.5,
+                        fit: BoxFit.cover),*/
+                    color: const Color(0xfff45262),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Column(
                     children: [
                       Row(
@@ -408,13 +418,13 @@ class _wigsState extends State<wigs> {
                           Text(
                               "SkinCare",
                             style: GoogleFonts.roboto(
-                              color: Color(0xffffffff),
+                              color: const Color(0xffffffff),
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
                           ),
                           IconButton(onPressed: (){},
-                          icon: FaIcon(
+                          icon: const FaIcon(
                               FontAwesomeIcons.hospital,
                             size: 30,
                             color: Color(0xff171c3c),
@@ -426,14 +436,6 @@ class _wigsState extends State<wigs> {
                         ],
                       )
                     ],
-                  ),
-                  decoration: BoxDecoration(
-                   /* image: DecorationImage(
-                        image: AssetImage("assets/lotions2.jpg"),
-                        opacity: 0.5,
-                        fit: BoxFit.cover),*/
-                    color: Color(0xfff45262),
-                    borderRadius: BorderRadius.circular(10),
                   ),
                 )),
               ],
@@ -454,49 +456,49 @@ class _buttonsState extends State<buttons> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ElevatedButton(
             onPressed: () {},
-            child: Row(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xff6e59f1),
+                foregroundColor: Colors.white,
+                side: const BorderSide(color: Color(0xff1b91bf)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                )),
+            child: const Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(Icons.home_filled),
                 Text("Home"),
               ],
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff6e59f1),
-                foregroundColor: Colors.white,
-                side: BorderSide(color: Color(0xff1b91bf)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                )),
           ),
           ElevatedButton(
             onPressed: () {},
-            child: Row(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xff6e59f1),
+                foregroundColor: Colors.white,
+                side: const BorderSide(color: Color(0xff1b91bf)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                )),
+            child: const Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(Icons.person),
                 Text("Profile"),
               ],
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff6e59f1),
-                foregroundColor: Colors.white,
-                side: BorderSide(color: Color(0xff1b91bf)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                )),
           ),
         ],
       ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5)),
     );
   }
 }
