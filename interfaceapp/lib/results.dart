@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'condition_details_page.dart';
+import '../models/skin_condition.dart';
 
 class ResultsPage extends StatelessWidget {
+  final SkinCondition detectedCondition;
+
+  const ResultsPage({super.key, required this.detectedCondition});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xff8A2BE2),
+        backgroundColor: const Color(0xff603FeF),
         elevation: 0,
         title: const Text(
           'Results',
@@ -27,9 +33,8 @@ class ResultsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
-                const Text(
-                  'Eczema',
-                  style: TextStyle(
+                Text('Detected condition: ${detectedCondition.name}',
+                  style: const TextStyle(
                     color: Color(0xFF171111),
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -38,7 +43,7 @@ class ResultsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Dermatologia is 86% confident that the skin condition is Eczema. This is a common skin condition that affects people of all ages.',
+                  'Dermatologia is 86% confident that the skin condition is Eczema...',
                   style: TextStyle(
                     color: Color(0xFF171111),
                     fontSize: 16,
@@ -55,82 +60,49 @@ class ResultsPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
+                // Display recommendations here
                 buildNextStepItem('Moisturize your skin often'),
                 buildNextStepItem('Use mild soap when bathing'),
                 buildNextStepItem('Apply anti-itch cream'),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle appointment booking
+                      _navigateToConditionDetails(context, detectedCondition);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff8A2BE2),
+                      backgroundColor: const Color(0xff603FeF),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text(
-                      'learn more',
-                      style: TextStyle(
-                        color: Color(0xFFffffff),
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: const Text('Learn More', style: TextStyle(color: Color(0xFFffffff),fontSize: 16)),
                   ),
                 ),
               ],
             ),
-          ),
-          Text(
-            'We recommend that you see a dermatologist for further treatment.',
-            style: TextStyle(
-              color: Color(0xFF8A2BE2),
-              fontSize: 14,
-            ),
-          ),
-          BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: Color(0xFF171111)),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search, color: Color(0xFF876464)),
-                label: 'Detect',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border, color: Color(0xFF876464)),
-                label: 'History',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Color(0xFF876464)),
-                label: 'Profile',
-              ),
-            ],
           ),
         ],
       ),
     );
   }
 
-  Widget buildNextStepItem(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Color(0xFF171111),
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
+  // Helper widget for the next step items
+  Widget buildNextStepItem(String step) {
+    return ListTile(
+      title: Text(step, style: const TextStyle(fontSize: 16)),
+      leading: const Icon(Icons.check_circle_outline),
+    );
+  }
+
+  // Navigate to the ConditionDetailsPage
+  void _navigateToConditionDetails(BuildContext context, SkinCondition condition) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ConditionDetailsPage(condition: condition),
       ),
     );
   }
