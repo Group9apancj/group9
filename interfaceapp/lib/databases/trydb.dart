@@ -81,6 +81,6 @@ void main() async {
   await db.openC();
 
   final result =
-  await db.insertPatient("warge", "100", "warge@gmail.com", "12345");
+      await db.insertPatient("warge", "100", "warge@gmail.com", "12345");
   print(result);
 }
