@@ -71,7 +71,7 @@ class Database {
         return false;
       }
     } catch (e) {
-      return e;
+      return "";
     }
   }
 }
