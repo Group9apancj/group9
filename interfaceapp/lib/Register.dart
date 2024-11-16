@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Databases/tryDB.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,10 +10,57 @@ class Register extends StatefulWidget {
 }
 
 class _LoginPageState extends State<Register> {
+  late TextEditingController _name=TextEditingController();
+  late TextEditingController _age=TextEditingController();
+  late TextEditingController _email=TextEditingController();
+  late TextEditingController _password=TextEditingController();
+  late TextEditingController _confirm=TextEditingController();
+
+  late Database db;
+
   int h1 = 0;
   int h2 = 0;
   int _selectedValue = 1;
-  int obsec=1;
+  int obsec = 1;
+
+  @override
+  void initState(){
+    super.initState();
+    db = Database();
+    db.openC();
+  }
+
+  void showAlertDialog(BuildContext context,msg,type) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("warning"),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if(type=="register"){
+                  _name.clear();
+                  _password.clear();
+                  _confirm.clear();
+                  _email.clear();
+                  _age.clear();
+
+                  Navigator.pushNamed(context, "/");
+                }
+                else{
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,21 +68,21 @@ class _LoginPageState extends State<Register> {
       appBar: AppBar(
         backgroundColor: const Color(0xffffffff),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios,
+          icon: const Icon(
+            Icons.arrow_back_ios,
             size: 30,
             color: Color(0xff715cf8),
           ),
           onPressed: () {
             Navigator.pop(context);
-            },
+          },
         ),
-
         title: Center(
           child: Text(
             "Create account",
             style: GoogleFonts.roboto(
                 color: const Color(0xff715cf8),
-                fontSize: 42,
+                fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
         ),
@@ -48,6 +96,7 @@ class _LoginPageState extends State<Register> {
                 children: [
                   const SizedBox(height: 80),
                   TextFormField(
+                    controller: _name,
                     decoration: InputDecoration(
                       hintText: "Enter your name",
                       hintStyle: GoogleFonts.roboto(
@@ -68,6 +117,7 @@ class _LoginPageState extends State<Register> {
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
+                    controller: _age,
                     decoration: InputDecoration(
                       hintText: "Enter your age",
                       hintStyle: GoogleFonts.roboto(
@@ -91,7 +141,8 @@ class _LoginPageState extends State<Register> {
                   SizedBox(
                       width: double.infinity,
                       child: Column(children: [
-                        Text("Select your gender",
+                        Text(
+                          "Select your gender",
                           style: GoogleFonts.roboto(
                               color: Colors.grey,
                               fontSize: 20,
@@ -141,6 +192,7 @@ class _LoginPageState extends State<Register> {
                       ])),
                   const SizedBox(height: 20),
                   TextFormField(
+                    controller: _email,
                     decoration: InputDecoration(
                       hintText: "Enter your email",
                       hintStyle: GoogleFonts.roboto(
@@ -162,6 +214,7 @@ class _LoginPageState extends State<Register> {
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
+                    controller: _password,
                     decoration: InputDecoration(
                       hintText: "Enter your password",
                       hintStyle: GoogleFonts.roboto(
@@ -190,11 +243,12 @@ class _LoginPageState extends State<Register> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                    obscureText: h1==0?true:false,
+                    obscureText: h1 == 0 ? true : false,
                     obscuringCharacter: "*",
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
+                    controller: _confirm,
                     decoration: InputDecoration(
                       hintText: "Confirm your password",
                       hintStyle: GoogleFonts.roboto(
@@ -223,23 +277,31 @@ class _LoginPageState extends State<Register> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                    obscureText: h2==0?true:false,
+                    obscureText: h2 == 0 ? true : false,
                     obscuringCharacter: "*",
                   ),
-
                   const SizedBox(height: 40),
                   SizedBox(
                     width: 200,
                     height: 70,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        if(_password.text.trim()==_confirm.text.trim()) {
+                          String result=await db.insertPatient(_name.text.trim(), _age.text
+                              .trim(), _email.text.trim(), _password.text
+                              .trim());
+                          showAlertDialog(context, result,"register");
+
+                        }else{
+                          showAlertDialog(context, "The confirm password should be similar to password input","nothing");
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff715cf8),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                          )
-                      ),
+                          )),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.end,

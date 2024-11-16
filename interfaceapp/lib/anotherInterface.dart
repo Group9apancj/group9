@@ -6,33 +6,27 @@ import 'dart:async';
 import 'NewInter.dart';
 
 void main() => runApp(MaterialApp(
-  home: Inter(),
+      home: Inter(user: "halla"),
   debugShowCheckedModeBanner: false,
-));
+    ));
 
 class Inter extends StatefulWidget {
-  const Inter({super.key});
+  final String user;
+  const Inter({required this.user});
 
   @override
   State<Inter> createState() => _InterState();
 }
 
 class _InterState extends State<Inter> {
-  int _currentIndex = 0; // Initialize the current index for the BottomNavigationBar
-
-  // Define the onItemTapped method to update the selected tab index
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffafafc),
-      body: SingleChildScrollView(
-        child: Container(
+        backgroundColor: Color(0xfffafafc),
+        body:
+        SingleChildScrollView(
+    child:
+        Container(
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
@@ -56,7 +50,7 @@ class _InterState extends State<Inter> {
                             fontSize: 20,
                           )),
                       SizedBox(width: 10),
-                      Text("User,",
+                      Text(widget.user + ',',
                           style: GoogleFonts.roboto(
                             color: Color(0xff7d5a7a),
                             fontWeight: FontWeight.bold,
@@ -203,48 +197,45 @@ class _InterState extends State<Inter> {
               SizedBox(height: 15),
               ImageCarousel(),
               SizedBox(height: 16),
-              News() // Make sure to define the News widget
+              News()
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, -1),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10,
-              offset: Offset(0, -1),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: _onItemTapped,
-          selectedItemColor: Colors.deepPurple,
-          unselectedItemColor: Colors.grey,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.photo_camera_back_outlined),
-              label: 'Image Upload',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-        ),
-      ),
-    );
+          child: BottomNavigationBar(
+            selectedItemColor: Colors.deepPurple,
+            unselectedItemColor: Colors.grey,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.photo_camera_back_outlined),
+                label: 'Image Upload',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+          ),
+        ));
   }
 }
 
@@ -293,7 +284,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
     return Center(
       child: Container(
         height: 200,
-        width: double.infinity, // 85% of screen width to center and prevent touching borders
+        width: double
+            .infinity, // 85% of screen width to center and prevent touching borders
         child: PageView.builder(
           controller: _pageController,
           itemCount: images.length,
