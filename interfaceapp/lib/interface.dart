@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'dart:typed_data';
 import 'uploadClass.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,39 +27,99 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Upload2 upload=Upload2();
-
+  Upload2 upload = Upload2();
   Uint8List? _imageBytes;
+  double _brightness = 1.0;
+  double _contrast = 1.0;
+  bool _isEditing = false;
+  int _rotationAngle = 0;
+
   Future<void> _pickImageFromGallery() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      final bytes =
-          await pickedFile.readAsBytes();
+      final bytes = await pickedFile.readAsBytes();
       setState(() {
         _imageBytes = bytes;
+        _resetFilters();
       });
     }
   }
 
   Future<void> _pickImageFromCamera() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      final bytes =
-          await pickedFile.readAsBytes(); // Get bytes for web compatibility
+      final bytes = await pickedFile.readAsBytes();
+      setState(() {
+        _imageBytes = bytes;
+        _resetFilters();
+      });
+    }
+  }
+
+  Future<void> _cropImage() async {
+    if (_imageBytes == null) return;
+
+    final tempDir = await getTemporaryDirectory();
+    final tempPath = '${tempDir.path}/image.jpg';
+    final imageFile = File(tempPath)..writeAsBytesSync(_imageBytes!);
+
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatioPresets: [CropAspectRatioPreset.square],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Colors.deepPurple,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        ),
+      ],
+    );
+
+    if (croppedFile != null) {
+      final bytes = await croppedFile.readAsBytes();
       setState(() {
         _imageBytes = bytes;
       });
     }
   }
 
-  Future<void> sendImageToModel() async{
-    if(_imageBytes!=null){
-      final results=await upload.uploadImage(_imageBytes);
+  void _applyBrightness(double value) {
+    setState(() {
+      _brightness = value;
+    });
+  }
+
+  void _applyContrast(double value) {
+    setState(() {
+      _contrast = value;
+    });
+  }
+
+  void _resetFilters() {
+    setState(() {
+      _brightness = 1.0;
+      _contrast = 1.0;
+      _rotationAngle = 0;
+    });
+  }
+
+  void _rotateImage() {
+    setState(() {
+      _rotationAngle = (_rotationAngle + 90) % 360;
+    });
+  }
+
+  Future<void> sendImageToModel() async {
+    if (_imageBytes != null) {
+      final results = await upload.uploadImage(_imageBytes);
       print(results);
-    }else{
-      print("Select image");
+    } else {
+      print("Select photo");
     }
   }
 
@@ -92,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Good Morning, User',
+                      'Good Morning, X',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -157,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             SizedBox(height: 20),
-            // Container to display the selected image or icon
+            // Container to display the selected image or icon with adjustments
             Container(
               padding: EdgeInsets.all(16.0),
               margin: EdgeInsets.all(10.0),
@@ -177,47 +240,82 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Center(
                 child: _imageBytes != null
-                    ? Image.memory(
-                        _imageBytes!,
-                        fit: BoxFit.cover,
-                      )
+                    ? ColorFiltered(
+                  colorFilter: ColorFilter.matrix(_getColorMatrix(_brightness, _contrast)),
+                  child: Transform.rotate(
+                    angle: _rotationAngle * 3.14159 / 180, // Rotate by _rotationAngle
+                    child: Image.memory(
+                      _imageBytes!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
                     : Icon(
-                        Icons.add_photo_alternate_outlined,
-                        color: Colors.deepPurple,
-                        size: 50,
-                      ),
+                  Icons.add_photo_alternate_outlined,
+                  color: Colors.deepPurple,
+                  size: 50,
+                ),
               ),
             ),
+            SizedBox(height: 10),
+            _isEditing
+                ? Column(
+              children: [
+                Text("Brightness"),
+                Slider(
+                  value: _brightness,
+                  min: 0.5,
+                  max: 1.5,
+                  onChanged: _applyBrightness,
+                ),
+                Text("Contrast"),
+                Slider(
+                  value: _contrast,
+                  min: 0.5,
+                  max: 1.5,
+                  onChanged: _applyContrast,
+                ),
+                ElevatedButton(
+                  onPressed: _cropImage,
+                  child: Text("Crop Image"),
+                ),
+                ElevatedButton(
+                  onPressed: _rotateImage,
+                  child: Text("Rotate Image"),
+                ),
+              ],
+            )
+                : Container(),
             SizedBox(height: 20),
             Container(
+              height: 50,
               width: 150,
-                child: ElevatedButton(
-              onPressed: () {
-                sendImageToModel();
-              },
-              child: Row(
-                children: [
-                  Icon(Icons.upload),
-                  SizedBox(width: 5),
-                  Text("Upload",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  )
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                elevation: 4,
+              child: ElevatedButton(
+                onPressed: sendImageToModel,
+                child: Row(
+                  children: [
+                    Icon(Icons.upload),
+                    SizedBox(width: 5),
+                    Text(
+                      "Upload",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 4,
                   backgroundColor: Color(0xFF9575CD),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-
+                ),
               ),
-            )
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -260,35 +358,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildActionButton(
-      {required IconData icon,
-      required String label,
-      required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 150,
-        height: 50,
-        decoration: BoxDecoration(
-          color: Color(0xFF9575CD),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 6,
-              spreadRadius: 3,
-            ),
-          ],
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Column(
+      children: [
+        IconButton(
+          icon: Icon(icon),
+          iconSize: 40,
+          onPressed: onTap,
+          color: Colors.deepPurple,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: Colors.white, size: 30),
-            SizedBox(width: 10),
-            Text(label, style: TextStyle(color: Colors.white, fontSize: 16)),
-          ],
-        ),
-      ),
+        Text(label, style: TextStyle(fontSize: 16)),
+      ],
     );
+  }
+
+  List<double> _getColorMatrix(double brightness, double contrast) {
+    // Create a matrix for adjusting brightness and contrast
+    double factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+    double b = brightness - 1;
+
+    return [
+      factor, 0, 0, 0, b, // Red
+      0, factor, 0, 0, b, // Green
+      0, 0, factor, 0, b, // Blue
+      0, 0, 0, 1, 0, // Alpha
+    ];
   }
 }
