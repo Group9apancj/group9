@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:photo_view/photo_view.dart';
 import 'dart:typed_data';
 import 'uploadClass.dart';
 import 'dart:io';
@@ -33,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double _brightness = 1.0;
   double _contrast = 1.0;
   bool _isEditing = false;
+  int _rotationAngle = 0;
 
   Future<void> _pickImageFromGallery() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -59,14 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _cropImage() async {
     if (_imageBytes == null) return;
 
-    // Get temporary directory path
     final tempDir = await getTemporaryDirectory();
     final tempPath = '${tempDir.path}/image.jpg';
-
-    // Save the image as a file
     final imageFile = File(tempPath)..writeAsBytesSync(_imageBytes!);
 
-    // Crop the image using the file path
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
       aspectRatioPresets: [CropAspectRatioPreset.square],
@@ -81,9 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
         IOSUiSettings(
           title: 'Crop Image',
         ),
-        WebUiSettings(
-          context: context,
-        ),
       ],
     );
 
@@ -93,32 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
         _imageBytes = bytes;
       });
     }
-  }
-
-
-
-  Future<void> _rotateImage() async {
-    if (_imageBytes == null) return;
-    // Rotation logic, e.g., 90 degrees clockwise, can be implemented using the Transform widget
-    setState(() {
-      _imageBytes = _imageBytes; // Placeholder for the actual rotation logic
-    });
-  }
-
-  Future<void> sendImageToModel() async {
-    if (_imageBytes != null) {
-      final results = await upload.uploadImage(_imageBytes);
-      print(results);
-    } else {
-      print("Select photo");
-    }
-  }
-
-  void _resetFilters() {
-    setState(() {
-      _brightness = 1.0;
-      _contrast = 1.0;
-    });
   }
 
   void _applyBrightness(double value) {
@@ -131,6 +98,29 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _contrast = value;
     });
+  }
+
+  void _resetFilters() {
+    setState(() {
+      _brightness = 1.0;
+      _contrast = 1.0;
+      _rotationAngle = 0;
+    });
+  }
+
+  void _rotateImage() {
+    setState(() {
+      _rotationAngle = (_rotationAngle + 90) % 360;
+    });
+  }
+
+  Future<void> sendImageToModel() async {
+    if (_imageBytes != null) {
+      final results = await upload.uploadImage(_imageBytes);
+      print(results);
+    } else {
+      print("Select photo");
+    }
   }
 
   int _currentIndex = 1;
@@ -230,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             SizedBox(height: 20),
-            // Container to display the selected image or icon
+            // Container to display the selected image or icon with adjustments
             Container(
               padding: EdgeInsets.all(16.0),
               margin: EdgeInsets.all(10.0),
@@ -250,9 +240,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Center(
                 child: _imageBytes != null
-                    ? Image.memory(
-                  _imageBytes!,
-                  fit: BoxFit.cover,
+                    ? ColorFiltered(
+                  colorFilter: ColorFilter.matrix(_getColorMatrix(_brightness, _contrast)),
+                  child: Transform.rotate(
+                    angle: _rotationAngle * 3.14159 / 180, // Rotate by _rotationAngle
+                    child: Image.memory(
+                      _imageBytes!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 )
                     : Icon(
                   Icons.add_photo_alternate_outlined,
@@ -362,20 +358,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildActionButton(
-      {required IconData icon, required String label, required VoidCallback onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Icon(icon, size: 35, color: Colors.deepPurple),
-          SizedBox(height: 5),
-          Text(
-            label,
-            style: TextStyle(fontSize: 16, color: Colors.deepPurple),
-          ),
-        ],
-      ),
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return Column(
+      children: [
+        IconButton(
+          icon: Icon(icon),
+          iconSize: 40,
+          onPressed: onTap,
+          color: Colors.deepPurple,
+        ),
+        Text(label, style: TextStyle(fontSize: 16)),
+      ],
     );
+  }
+
+  List<double> _getColorMatrix(double brightness, double contrast) {
+    // Create a matrix for adjusting brightness and contrast
+    double factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+    double b = brightness - 1;
+
+    return [
+      factor, 0, 0, 0, b, // Red
+      0, factor, 0, 0, b, // Green
+      0, 0, factor, 0, b, // Blue
+      0, 0, 0, 1, 0, // Alpha
+    ];
   }
 }
