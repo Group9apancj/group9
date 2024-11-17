@@ -29,8 +29,7 @@ class MyServer(BaseHTTPRequestHandler):
                 print(staff)
 
                 self._set_headers()
-                self.wfile.write(b'{"status": "Image received and saved"}')
-
+                self.wfile.write(str(staff).encode())
             except Exception as e:
                 self._set_headers(400)
                 error_message = f'Error: {str(e)}'

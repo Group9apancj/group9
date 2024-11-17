@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'results.dart'; // Ensure this file contains ResultsPage with the required parameter
+import 'results.dart';
 import 'models/skin_condition.dart';
-import 'condition_details_page.dart'; // Ensure this file contains ConditionDetailsPage with required parameter
+import 'condition_details_page.dart';
+
+void main()=>runApp(MaterialApp(
+  home: DiagnosisScreen(),
+));
 
 class DiagnosisScreen extends StatelessWidget {
   const DiagnosisScreen({super.key});
