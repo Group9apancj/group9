@@ -10,11 +10,11 @@ class Register extends StatefulWidget {
 }
 
 class _LoginPageState extends State<Register> {
-  late TextEditingController _name=TextEditingController();
-  late TextEditingController _age=TextEditingController();
-  late TextEditingController _email=TextEditingController();
-  late TextEditingController _password=TextEditingController();
-  late TextEditingController _confirm=TextEditingController();
+  late final TextEditingController _name=TextEditingController();
+  late final TextEditingController _age=TextEditingController();
+  late final TextEditingController _email=TextEditingController();
+  late final TextEditingController _password=TextEditingController();
+  late final TextEditingController _confirm=TextEditingController();
 
   late Database db;
 
@@ -35,11 +35,11 @@ class _LoginPageState extends State<Register> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Notice"),
+          title: const Text("Notice"),
           content: Text(msg),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
                 if(type=="register"){
@@ -67,11 +67,11 @@ class _LoginPageState extends State<Register> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Notice"),
+          title: const Text("Notice"),
           content: Text(msg),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -121,12 +121,12 @@ class _LoginPageState extends State<Register> {
                   Container(
                     width: double.infinity,
                     height: 200,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/wap.jpg"),
                             fit: BoxFit.cover)),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _name,
                     decoration: InputDecoration(

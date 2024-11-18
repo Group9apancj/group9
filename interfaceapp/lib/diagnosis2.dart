@@ -4,7 +4,7 @@ import 'results.dart'; // Ensure this file contains ResultsPage with the require
 import 'models/skin_condition.dart';
 import 'condition_details_page.dart'; // Ensure this file contains ConditionDetailsPage with required parameter
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: DiagnosisScreen(),
     ));
 
@@ -15,7 +15,7 @@ class DiagnosisScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffdfd9fc),
+        backgroundColor: const Color(0xffdfd9fc),
         title: const Text(
           'Diagnosis results',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -29,6 +29,15 @@ class DiagnosisScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             width: double.infinity,
             height: 200,
+            decoration: const BoxDecoration(
+              color:  Color(0xff603FeF),
+                image: DecorationImage(
+                    image: AssetImage("assets/Ws.jpg"),
+                  fit: BoxFit.cover,
+                  opacity: 0.8
+                ),
+
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -58,7 +67,7 @@ class DiagnosisScreen extends StatelessWidget {
               children: [
                 Text("89%",
                   style: GoogleFonts.roboto(
-                    color: Color(0xFF673AB7),
+                    color: const Color(0xFF673AB7),
                     fontSize: 50,
                     fontWeight: FontWeight.bold,
                   ),
@@ -66,41 +75,32 @@ class DiagnosisScreen extends StatelessWidget {
 
                 ElevatedButton(
                     onPressed: (){},
-                    child: Row(children: [
-                      Text("Read more",
-                      style: GoogleFonts.roboto(
-                        color: Color(0xFF673AB7),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16
-                      ),
-                      ),
-                    SizedBox(width: 5),
-                    Icon(Icons.arrow_forward_sharp)
-                ]
-                    ),
                   
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                   ),
+                    child: Row(children: [
+                      Text("Read more",
+                      style: GoogleFonts.roboto(
+                        color: const Color(0xFF673AB7),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16
+                      ),
+                      ),
+                    const SizedBox(width: 5),
+                    const Icon(Icons.arrow_forward_sharp)
+                ]
+                    ),
                 )
                   ]
                 )
               ],
             ),
-            decoration: BoxDecoration(
-              color:  Color(0xff603FeF),
-                image: DecorationImage(
-                    image: AssetImage("assets/Ws.jpg"),
-                  fit: BoxFit.cover,
-                  opacity: 0.8
-                ),
-
-            ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
         Text("Other possible conditions!",
             style: GoogleFonts.roboto(
@@ -109,7 +109,7 @@ class DiagnosisScreen extends StatelessWidget {
                 fontSize: 16
             ),
         ),
-          OtherDs()
+          const OtherDs()
         ]),
       ),
       ),
@@ -206,8 +206,18 @@ setState(() {
   widgetList.add(
     Column(children: [
       Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
     width: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.grey,
+          blurRadius: 1,
+        )
+      ]
+    ),
     child: Column(
       children: [
         Row(
@@ -222,7 +232,7 @@ setState(() {
             ),
             Text(dis["percentage"],
               style: GoogleFonts.roboto(
-                color: Color(0xFF673AB7),
+                color: const Color(0xFF673AB7),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -242,46 +252,36 @@ setState(() {
               ),
             ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             TextButton(
               onPressed: (){},
-              child: Row(children: [
-                Text("Read more",
-                  style: GoogleFonts.roboto(
-                      color: Color(0xFF673AB7),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16
-                  ),
-                ),
-                SizedBox(width: 5),
-                Icon(Icons.arrow_forward_sharp)
-              ]
-              ),
 
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                padding: EdgeInsets.only(left: 5),
+                padding: const EdgeInsets.only(left: 5),
+              ),
+              child: Row(children: [
+                Text("Read more",
+                  style: GoogleFonts.roboto(
+                      color: const Color(0xFF673AB7),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16
+                  ),
+                ),
+                const SizedBox(width: 5),
+                const Icon(Icons.arrow_forward_sharp)
+              ]
               ),
             )
           ],
         )
       ],
     ),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey,
-          blurRadius: 1,
-        )
-      ]
-    ),
   ),
 
-      SizedBox(height: 20)
+      const SizedBox(height: 20)
   ]
     ),
   );
@@ -292,7 +292,7 @@ setState(() {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           ...widgetList

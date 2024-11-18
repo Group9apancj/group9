@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 class Model:
     def __init__(self):
-        self.model=load_model("C:/Users/DELL/Desktop/alldatasets/models/testingModel.h5")
+        self.model=load_model("C:/Users/acer/OneDrive/Desktop/testingModel.h5")
         print(self.model.summary())
 
         label=ImageDataGenerator()

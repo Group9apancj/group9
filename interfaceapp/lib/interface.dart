@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'uploadClass.dart';
-import 'dart:io';
-import 'dart:ui' as ui;
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: HomeScreen(user: 'warge'),
       debugShowCheckedModeBanner: false,
     ));
 
 class HomeScreen extends StatefulWidget {
   final String user;
-  const HomeScreen({required this.user});
+  const HomeScreen({super.key, required this.user});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -49,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> sendImageToModel() async {
     if (_imageBytes != null) {
       final image = await decodeImageFromList(_imageBytes!);
-      print(image.width.toString()+" " +image.height.toString());
+      print("${image.width} ${image.height}");
       final results = await upload.uploadImage(_imageBytes);
     } else {
       showAlertDialog(context, "please select a photo");
@@ -61,11 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("warning"),
+          title: const Text("warning"),
           content: Text(msg),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -84,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -95,21 +92,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottomRight: Radius.circular(20.0),
                 ),
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Good Morning,${widget.user}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'Select image to upload',
                       style: TextStyle(
                         fontSize: 18,
@@ -121,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -129,43 +126,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     _pickImageFromCamera();
                   },
-                  child: Row(children: [
-                    Icon(Icons.camera_alt_outlined),
-                    Text('Open Camera'),
-                  ]),
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: Colors.white,
-                    foregroundColor: Color(0xFF9575CD),
+                    foregroundColor: const Color(0xFF9575CD),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
+                  child: const Row(children: [
+                    Icon(Icons.camera_alt_outlined),
+                    Text('Open Camera'),
+                  ]),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     _pickImageFromGallery();
                   },
-                  child: Row(children: [
-                    Icon(Icons.camera_alt_outlined),
-                    Text('Open galley'),
-                  ]),
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: Colors.white,
-                    foregroundColor: Color(0xFF9575CD),
+                    foregroundColor: const Color(0xFF9575CD),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
+                  child: const Row(children: [
+                    Icon(Icons.camera_alt_outlined),
+                    Text('Open galley'),
+                  ]),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Container to display the selected image or icon
             Container(
-              padding: EdgeInsets.all(16.0),
-              margin: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(10.0),
               width: double.infinity,
               height: 400,
               decoration: BoxDecoration(
@@ -176,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 1,
                     blurRadius: 1,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -186,22 +183,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         _imageBytes!,
                         fit: BoxFit.cover,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.add_photo_alternate_outlined,
                         color: Colors.deepPurple,
                         size: 50,
                       ),
               ),
             ),
-            SizedBox(height: 20),
-            Container(
+            const SizedBox(height: 20),
+            SizedBox(
                 height: 50,
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () {
                     sendImageToModel();
                   },
-                  child: Row(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    backgroundColor: const Color(0xFF9575CD),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: const Row(
                     children: [
                       Icon(Icons.upload),
                       SizedBox(
@@ -216,16 +221,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 4,
-                    backgroundColor: Color(0xFF9575CD),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
                 )),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),

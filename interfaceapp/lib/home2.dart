@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 
-void main()=>runApp(MaterialApp(
+void main()=>runApp(const MaterialApp(
   home: Inter(user: "Halaa"),
 ));
 
 class Inter extends StatefulWidget {
   final String user;
-  const Inter({required this.user});
+  const Inter({super.key, required this.user});
 
   @override
   State<Inter> createState() => _InterState();
@@ -24,10 +24,10 @@ class _InterState extends State<Inter> {
             child: Column(
               children: [
                 AppBar2(user:widget.user),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(10),
-                child: Container(
+                  padding: const EdgeInsets.all(10),
+                child: SizedBox(
                   width: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -41,20 +41,26 @@ class _InterState extends State<Inter> {
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(height: 2),
+                      const SizedBox(height: 2),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(blurRadius: 1, color: Colors.grey)
+                            ]),
                         child: Column(
                           children: [
                             Container(
                               child: Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.history_edu,
                                     color: Colors.black,
                                     size: 30,
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Text(
                                     "Eczema",
                                     style: GoogleFonts.roboto(
@@ -66,7 +72,7 @@ class _InterState extends State<Inter> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               child: Row(
                                 mainAxisAlignment:
@@ -76,12 +82,12 @@ class _InterState extends State<Inter> {
                                       mainAxisAlignment:
                                       MainAxisAlignment.start,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.date_range,
                                           color: Color(0xFF673AB7),
                                           size: 20,
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           "22/03/2099",
                                           style: GoogleFonts.roboto(
@@ -92,12 +98,12 @@ class _InterState extends State<Inter> {
                                         )
                                       ]),
                                   Row(children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.timelapse,
                                       color: Color(0xFF673AB7),
                                       size: 20,
                                     ),
-                                    SizedBox(width: 5),
+                                    const SizedBox(width: 5),
                                     Text(
                                       "03:00",
                                       style: GoogleFonts.roboto(
@@ -112,22 +118,16 @@ class _InterState extends State<Inter> {
                             ),
                           ],
                         ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(blurRadius: 1, color: Colors.grey)
-                            ]),
                       )
                     ],
                   ),
                 ),
                 ),
-                SizedBox(height: 140),
+                const SizedBox(height: 140),
                 Container(
                   width: double.infinity,
                   height: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                   image:DecorationImage(
                     image: AssetImage("assets/wap.jpg"),
                     fit: BoxFit.cover,
@@ -135,7 +135,7 @@ class _InterState extends State<Inter> {
                 ),
                 ),
                 //ImageCarousel(),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 //News()
               ],
             ),
@@ -148,6 +148,8 @@ class _InterState extends State<Inter> {
 }
 
 class ImageCarousel extends StatefulWidget {
+  const ImageCarousel({super.key});
+
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
 }
@@ -167,7 +169,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   void initState() {
     super.initState();
     // Automatic page transition (rotating effect)
-    Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (_currentPage < images.length - 1) {
         _currentPage++;
       } else {
@@ -175,7 +177,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     });
@@ -190,7 +192,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         height: 200,
         width: double
             .infinity, // 85% of screen width to center and prevent touching borders
@@ -238,16 +240,27 @@ class _NewsState extends State<News> {
     return Container(
       height: MediaQuery.of(context).size.height*0.450,
       width: double.infinity,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+                color: Color(0xFF673AB7),
+                blurRadius: 1
+            )
+          ]
+      ),
       child: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: diseases.entries.map((entry) {
               return Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -255,12 +268,15 @@ class _NewsState extends State<News> {
                       child: Column(
                         children: [
                           Container(
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(color: Colors.grey))),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   entry.key,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold
@@ -269,14 +285,14 @@ class _NewsState extends State<News> {
                                 Row(
                                   children: [
                                     Text(
-                                      '${entry.value.toString()}',
-                                      style: TextStyle(
+                                      entry.value.toString(),
+                                      style: const TextStyle(
                                         color: Color(0xfff65364),
                                         fontSize: 14,
                                       ),
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
+                                    const SizedBox(width: 5),
+                                    const Text(
                                       'Diagnosis',
                                       style: TextStyle(
                                         color: Color(0xff181d3d),
@@ -287,12 +303,9 @@ class _NewsState extends State<News> {
                                 ),
                               ],
                             ),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.grey))),
                           ),
                           Container(
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
@@ -317,21 +330,10 @@ class _NewsState extends State<News> {
                     ),
                   ],
                 ),
-                margin: EdgeInsets.only(bottom: 10),
               );
             }).toList(),
           ),
         ),
-      ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                color: Color(0xFF673AB7),
-                blurRadius: 1
-            )
-          ]
       ),
     );
   }
@@ -339,7 +341,7 @@ class _NewsState extends State<News> {
 
 class AppBar2 extends StatefulWidget { // Fix class name
   final String user;
-  const AppBar2({required this.user});
+  const AppBar2({super.key, required this.user});
 
   @override
   State<AppBar2> createState() => _AppBar2State();
@@ -350,7 +352,7 @@ class _AppBar2State extends State<AppBar2> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -361,7 +363,7 @@ class _AppBar2State extends State<AppBar2> {
           bottomRight: Radius.circular(20.0),
         ),
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,7 +371,7 @@ class _AppBar2State extends State<AppBar2> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Dermatologia',
               style: TextStyle(
                 fontSize: 28,
@@ -377,26 +379,30 @@ class _AppBar2State extends State<AppBar2> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Row(children: [
-            Text(
+            const Text(
               'Hello',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Text(
                 widget.user,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
               ]),
             ]),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               height: 60,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -421,16 +427,12 @@ class _AppBar2State extends State<AppBar2> {
                     ),
                     softWrap: true,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.history,
                     color: Color(0xFF673AB7),
                     size: 25,
                   )
                 ],
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ],
@@ -453,29 +455,29 @@ class _AppBar1State extends State<AppBar1> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 50),
-        Container(
+        const SizedBox(height: 50),
+        SizedBox(
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Dermatologia",
                   style: GoogleFonts.roboto(
-                    color: Color(0xFF673AB7),
+                    color: const Color(0xFF673AB7),
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   )),
               Row(children: [
                 Text("Hello",
                     style: GoogleFonts.roboto(
-                      color: Color(0xff7d5a7a),
+                      color: const Color(0xff7d5a7a),
                       fontWeight: FontWeight.normal,
                       fontSize: 20,
                     )),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text('user,',
                     style: GoogleFonts.roboto(
-                      color: Color(0xff7d5a7a),
+                      color: const Color(0xff7d5a7a),
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     )),
@@ -483,10 +485,14 @@ class _AppBar1State extends State<AppBar1> {
             ],
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           height: 60,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: const Color(0xffdad5fd),
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -511,16 +517,12 @@ class _AppBar1State extends State<AppBar1> {
                 ),
                 softWrap: true,
               ),
-              Icon(
+              const Icon(
                 Icons.history,
                 color: Color(0xFF673AB7),
                 size: 25,
               )
             ],
-          ),
-          decoration: BoxDecoration(
-            color: Color(0xffdad5fd),
-            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ],

@@ -10,8 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController _name = TextEditingController();
-  late TextEditingController _password = TextEditingController();
+  late final TextEditingController _name = TextEditingController();
+  late final TextEditingController _password = TextEditingController();
 
   int h1 = 0;
   int h2 = 0;
@@ -34,11 +34,11 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Notice"),
+          title: const Text("Notice"),
           content: Text(msg),
           actions: [
             TextButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
                 if (type == "login") {
@@ -75,11 +75,11 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 width: double.infinity,
                 height: 200,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/wap.jpg"),
                         fit: BoxFit.cover)
@@ -182,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 0)),
+                            padding: const EdgeInsets.symmetric(horizontal: 0)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 140),
               Container(
-                margin: EdgeInsets.only(left: 50),
+                margin: const EdgeInsets.only(left: 50),
                   child: Row(
                 children: [
                   Text(

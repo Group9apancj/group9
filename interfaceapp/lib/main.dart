@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'upload.dart';
 import 'login.dart';
 import 'Register.dart';
 import 'anotherInterface.dart';
@@ -19,6 +18,7 @@ void main() => runApp(MaterialApp(
             );
           });
         }
+        return null;
   },
   debugShowCheckedModeBanner: false,
     ));
