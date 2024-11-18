@@ -23,7 +23,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "diagnosis Summary",
+              "dermtologia diagnosis Summary",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
