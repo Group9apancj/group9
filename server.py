@@ -26,10 +26,12 @@ class MyServer(BaseHTTPRequestHandler):
 
                 model=Model()
                 staff=model.feedImage(img)
-                print(staff)
+                print(str(staff).replace("'","\""))
 
-                self._set_headers()
-                self.wfile.write(str(staff).encode())
+                self._set_headers(200)
+                self.wfile.write(str(staff).replace("'","\"").encode())
+
+
             except Exception as e:
                 self._set_headers(400)
                 error_message = f'Error: {str(e)}'

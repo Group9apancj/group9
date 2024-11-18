@@ -3,6 +3,7 @@ import 'upload.dart';
 import 'login.dart';
 import 'Register.dart';
 import 'anotherInterface.dart';
+import 'diagnosis_page.dart';
 
 void main() => runApp(MaterialApp(
       initialRoute: '/',
@@ -16,6 +17,15 @@ void main() => runApp(MaterialApp(
           return MaterialPageRoute(builder: (context){
             return nav(
               user: args["name"]
+            );
+          });
+        }
+
+        if(settings.name=="diagnosis"){
+          final Map<String,dynamic> args=settings.arguments as Map<String,dynamic>;
+          return MaterialPageRoute(builder: (context){
+            return (
+                detail: args["name"]
             );
           });
         }
