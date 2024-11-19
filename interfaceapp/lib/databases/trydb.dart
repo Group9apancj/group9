@@ -12,6 +12,7 @@ class Database {
       username: 'postgres',
       password: 'warge',
     );
+    openC();
   }
 
   Future<void> openC() async {

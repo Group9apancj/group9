@@ -11,7 +11,11 @@ class Database {
       'Patients',
       username: 'postgres',
       password: 'warge',
+        queryTimeoutInSeconds:120,
+      timeoutInSeconds: 120
     );
+
+    openC();
   }
 
   Future<void> openC() async {
@@ -50,7 +54,7 @@ class Database {
       });
       return "Register successful, return to login page";
     } catch (e) {
-      return "Register unsuccessful $e";
+      return "Register unsuccessful";
     }
   }
 

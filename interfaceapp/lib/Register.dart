@@ -24,7 +24,7 @@ class _LoginPageState extends State<Register> {
   int obsec = 1;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     db = Database();
     db.openC();
@@ -35,7 +35,7 @@ class _LoginPageState extends State<Register> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("warning"),
+          title: Text("Notice"),
           content: Text(msg),
           actions: [
             TextButton(
@@ -61,6 +61,27 @@ class _LoginPageState extends State<Register> {
       },
     );
   }
+
+  void showAlertDialog2(BuildContext context,msg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Notice"),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +102,7 @@ class _LoginPageState extends State<Register> {
           child: Text(
             "Create account",
             style: GoogleFonts.roboto(
-                color: const Color(0xff715cf8),
+                color: const Color(0xFF9575CD),
                 fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
@@ -93,8 +114,19 @@ class _LoginPageState extends State<Register> {
             padding: const EdgeInsets.all(20),
             child: Form(
               child: Column(
+
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 20),
+
+                  Container(
+                    width: double.infinity,
+                    height: 200,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/wap.jpg"),
+                            fit: BoxFit.cover)),
+                  ),
+                  SizedBox(height: 20),
                   TextFormField(
                     controller: _name,
                     decoration: InputDecoration(
@@ -140,7 +172,9 @@ class _LoginPageState extends State<Register> {
                   const SizedBox(height: 40),
                   SizedBox(
                       width: double.infinity,
-                      child: Column(children: [
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                         Text(
                           "Select your gender",
                           style: GoogleFonts.roboto(
@@ -210,7 +244,6 @@ class _LoginPageState extends State<Register> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                    keyboardType: TextInputType.number,
                   ),
                   const SizedBox(height: 40),
                   TextFormField(
@@ -282,22 +315,31 @@ class _LoginPageState extends State<Register> {
                   ),
                   const SizedBox(height: 40),
                   SizedBox(
-                    width: 200,
-                    height: 70,
+                    width: 160,
+                    height: 50,
                     child: ElevatedButton(
-                      onPressed: () async{
-                        if(_password.text.trim()==_confirm.text.trim()) {
-                          String result=await db.insertPatient(_name.text.trim(), _age.text
-                              .trim(), _email.text.trim(), _password.text
-                              .trim());
-                          showAlertDialog(context, result,"register");
-
-                        }else{
-                          showAlertDialog(context, "The confirm password should be similar to password input","nothing");
+                      onPressed: () async {
+                        if (_name.text.isNotEmpty && _age.text.isNotEmpty &&
+                            _email.text.isNotEmpty &&
+                            _password.text.isNotEmpty) {
+                          if (_password.text.trim() == _confirm.text.trim()) {
+                            String result = await db.insertPatient(
+                                _name.text.trim(), _age.text
+                                .trim(), _email.text.trim(), _password.text
+                                .trim());
+                            showAlertDialog(context, result, "register");
+                          } else {
+                            showAlertDialog2(context,
+                                "The confirm password should be similar to password input");
+                          }
+                        }
+                        else {
+                          showAlertDialog2(context,
+                              "One of the input field is not filled");
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff715cf8),
+                          backgroundColor: const Color(0xFF9575CD),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
