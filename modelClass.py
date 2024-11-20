@@ -36,8 +36,13 @@ class Model:
         for val,key in enumerate (labels):
             if val==predicted_class[0]:
                 predicted_disease=key
-            
+
+        others={}
+        i=0
+        for val,key in enumerate (labels):
+            others[key]=predictions[0][i]
+            i+=1   
             
 
-        return [predicted_disease,predicted_class,predictions]
+        return {"predicted":predicted_disease,"position":str(predicted_class[0]),"others":others}
 

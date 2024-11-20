@@ -14,7 +14,10 @@ class Database {
         queryTimeoutInSeconds:120,
       timeoutInSeconds: 120
     );
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     openC();
   }
 

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:typed_data';
 import 'uploadClass.dart';
+<<<<<<< HEAD
+=======
+import 'dart:convert';
+import 'dart:ui' as ui;
+>>>>>>> origin/master
 
 void main() => runApp(const MaterialApp(
       home: HomeScreen(user: 'warge'),
@@ -48,10 +53,42 @@ class _HomeScreenState extends State<HomeScreen> {
       final image = await decodeImageFromList(_imageBytes!);
       print("${image.width} ${image.height}");
       final results = await upload.uploadImage(_imageBytes);
+      showAlertDialog3(context, "Do you want to review your results?");
+      
+      Map<String,dynamic> ham=jsonDecode(results);
+      print(ham["predicted"]);
     } else {
       showAlertDialog(context, "please select a photo");
     }
   }
+
+  void showAlertDialog3(BuildContext context, msg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Notice"),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              child: Text("Archive"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+
+            TextButton(
+              child: Text("View"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   void showAlertDialog(BuildContext context, msg) {
     showDialog(
