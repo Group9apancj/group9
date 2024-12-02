@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'upload.dart';
 import 'login.dart';
 import 'Register.dart';
 import 'anotherInterface.dart';
@@ -20,6 +19,9 @@ void main() => runApp(MaterialApp(
             );
           });
         }
+<<<<<<< HEAD
+        return null;
+=======
 
         if(settings.name=="diagnosis"){
           final Map<String,dynamic> args=settings.arguments as Map<String,dynamic>;
@@ -29,6 +31,7 @@ void main() => runApp(MaterialApp(
             );
           });
         }
+>>>>>>> origin/master
   },
   debugShowCheckedModeBanner: false,
     ));

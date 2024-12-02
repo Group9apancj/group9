@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 class EditImageScreen extends StatefulWidget {
   final Uint8List imageBytes;
 
-  EditImageScreen({required this.imageBytes});
+  const EditImageScreen({super.key, required this.imageBytes});
 
   @override
   _EditImageScreenState createState() => _EditImageScreenState();
@@ -37,14 +37,14 @@ class _EditImageScreenState extends State<EditImageScreen> {
       sourcePath: imageFile.path,
       aspectRatioPresets: [CropAspectRatioPreset.square],
       uiSettings: [
-        AndroidUiSettings(
+        const AndroidUiSettings(
           toolbarTitle: 'Crop Image',
           toolbarColor: Colors.deepPurple,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
-        IOSUiSettings(
+        const IOSUiSettings(
           title: 'Crop Image',
         ),
       ],
@@ -92,7 +92,7 @@ class _EditImageScreenState extends State<EditImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Image"),
+        title: const Text("Edit Image"),
         backgroundColor: Colors.deepPurple,
       ),
       body: Column(
@@ -132,19 +132,19 @@ class _EditImageScreenState extends State<EditImageScreen> {
             children: [
               ElevatedButton(
                 onPressed: _cropImage,
-                child: Text("Crop"),
+                child: const Text("Crop"),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: _rotateImage,
-                child: Text("Rotate"),
+                child: const Text("Rotate"),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context, _editedImageBytes);
                 },
-                child: Text("Confirm"),
+                child: const Text("Confirm"),
               ),
             ],
           ),
