@@ -2,10 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'home2.dart';
-import 'interface.dart';
+import 'interface2.dart';
+import 'diagnosis_page.dart';
+import 'diagnosis2.dart';
+import 'ProfilePage.dart';
 
 void main() => runApp(MaterialApp(
-      home: nav(user:"user"),
+      home: nav(user:"phidohphidz@gmail.com"),
+
+  onGenerateRoute: (settings){
+
+    if(settings.name=="homepage"){
+      final Map<String,dynamic> args=settings.arguments as Map<String,dynamic>;
+      return MaterialPageRoute(builder: (context){
+        return nav(
+            user: args["name"]
+        );
+      });
+    }
+
+    if(settings.name=="diagnosis"){
+      final Map<String,dynamic> args=settings.arguments as Map<String,dynamic>;
+      return MaterialPageRoute(builder: (context){
+        return DiagnosisScreen(
+            details: args
+        );
+      });
+    }
+
+    if(settings.name=="diagnosis2"){
+      final Map<String,dynamic> args=settings.arguments as Map<String,dynamic>;
+      return MaterialPageRoute(builder: (context){
+        return DiagnosisS(
+            details: args
+        );
+      });
+    }
+  },
+
   debugShowCheckedModeBanner: false,
 ));
 
@@ -23,6 +57,7 @@ class _navState extends State<nav> {
   late List<Widget> _pages=[
     Inter(user: widget.user),
     HomeScreen(user:widget.user),
+    ProfilePage2(user:widget.user)
   ];
 
 
@@ -33,7 +68,7 @@ class _navState extends State<nav> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         selectedItemColor: const Color(0xFF603FeF),
-        unselectedItemColor: const Color(0xff171111),
+        unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         currentIndex: current,
         onTap: (index){
@@ -51,8 +86,8 @@ class _navState extends State<nav> {
             label: 'ImageUpload',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
       ),
